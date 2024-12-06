@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://7lx0gu574dkl"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_7y1ug"]
+[ext_resource type="PackedScene" uid="uid://b1elludasm77c" path="res://PlayerPawn.tscn" id="2_qlmqd"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_7y1ug")
+player_scene = ExtResource("2_qlmqd")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="hostButton" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="joinButton" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://PlayerPawn.tscn")
+spawn_path = NodePath("..")
+
+[connection signal="button_up" from="CanvasLayer/Control/HBoxContainer/hostButton" to="." method="_on_host_button_button_up"]
+[connection signal="button_up" from="CanvasLayer/Control/HBoxContainer/joinButton" to="." method="_on_join_button_button_up"]
